@@ -1,9 +1,10 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
-using Excel = Microsoft.Office.Interop.Excel;
+using System.Threading;
 
 namespace MlmCargaCovid
 {
@@ -12,15 +13,56 @@ namespace MlmCargaCovid
         static void Main(string[] args)
         {
 
+            int cantErrores = 0;
             Console.WriteLine("Hola mundo");
-            var data = ReadExcelFile("BASE", @"D:\Codigo\MlmCargaCovid\MlmCargaCovid\ExcelSISA.xlsx");
+            //var data = ReadExcelFile("BASE", @"D:\Codigo\MlmCargaCovid\MlmCargaCovid\ExcelSISA.xlsx");
+            var data = ReadExcelFileClose("BASE", @"D:\Codigo\MlmCargaCovid\MlmCarga\MlmCargaCovid\ExcelSISA.xlsx");
             List<Paciente> pacientes = new List<Paciente>();
-            foreach (DataRow row in data.Rows)
+            foreach (var row in data)
             {
-                Paciente persona = new Paciente(row);
-                pacientes.Add(persona);
+                Console.WriteLine("Paciente " + row.RowNumber().ToString());
+                if ( row.RowNumber() == 1 )
+                {
+                    continue;
+                }
+                try
+                {
+                    Paciente persona = new Paciente(row);
+                    pacientes.Add(persona);
+                    persona.BuscarEnKlinicos();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    cantErrores++;
+                    continue;
+                }
+                
+                Thread.Sleep(10);
+                if(row.RowNumber() % 100 == 0)
+                    Console.Clear();
             }
 
+            Console.WriteLine(cantErrores);
+            Console.ReadLine();
+            
+
+
+
+
+
+
+        }
+
+        static private IXLRows ReadExcelFileClose(string sheetName, string path)
+        {
+
+
+            string fileName = path;
+            var excelWorkbook = new XLWorkbook(fileName);
+
+            var nonEmptyDataRows = excelWorkbook.Worksheet(sheetName).RowsUsed();
+            return nonEmptyDataRows;
 
         }
 

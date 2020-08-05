@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Codigo\\MlmCargaCovid\\MlmCargaCovid\\MlmCargaCovid.csproj": {}
+    "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {}
   },
   "projects": {
-    "D:\\Codigo\\MlmCargaCovid\\MlmCargaCovid\\MlmCargaCovid.csproj": {
+    "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codigo\\MlmCargaCovid\\MlmCargaCovid\\MlmCargaCovid.csproj",
+        "projectUniqueName": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
         "projectName": "MlmCargaCovid",
-        "projectPath": "D:\\Codigo\\MlmCargaCovid\\MlmCargaCovid\\MlmCargaCovid.csproj",
+        "projectPath": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
         "packagesPath": "C:\\Users\\ian\\.nuget\\packages\\",
-        "outputPath": "D:\\Codigo\\MlmCargaCovid\\MlmCargaCovid\\obj\\",
+        "outputPath": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ian\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.95.3, )"
+            },
             "System.Data.OleDb": {
               "target": "Package",
               "version": "[4.7.1, )"

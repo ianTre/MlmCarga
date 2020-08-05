@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using ClosedXML.Excel;
+
 
 namespace MlmCargaCovid
 {
@@ -15,43 +17,56 @@ namespace MlmCargaCovid
         public string Telefono { get; set; }
 
 
-        public Paciente(DataRow row)
+        public Paciente(IXLRow row)
         {
-            var columns = row.ItemArray;
 
-            Nombre = columns[0].ToString();
+            try
+            {
+
+            
+            Nombre = row.Cell(1).Value.ToString();
             if (String.IsNullOrEmpty(Nombre))
                 throw new Exception("El registro no contiene nombre");
 
-            Apellido = columns[1].ToString();
+            Apellido = row.Cell(2).Value.ToString();
             if (String.IsNullOrEmpty(Apellido))
                 throw new Exception("El registro no contiene Apellido");
 
             int aux;
-            string doc =columns[2].ToString();
+            string doc = row.Cell(3).Value.ToString();
             if(String.IsNullOrEmpty(doc))
                 throw new Exception("El registro no contiene DNI");
 
             if(!int.TryParse(doc,out aux))
                 throw new Exception("El registro no contiene DNI");
             NumeroDoc = aux;
-
+            
             Edad = 0;
-            int.TryParse(columns[3].ToString(), out aux);
+            int.TryParse(row.Cell(4).Value.ToString(), out aux);
             Edad = aux;
 
 
-            string fecha = columns[9].ToString();
+            string fecha = row.Cell(10).Value.ToString();
             DateTime auxFecha;
             DateTime.TryParse(fecha, out auxFecha);
             FechaCarga = auxFecha;
 
 
-            Telefono = columns[22].ToString();
+            Telefono = row.Cell(23).Value.ToString();
 
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
 
-        }   
+        }
+
+        internal void BuscarEnKlinicos()
+        {
+            
+        }
     }
 
 }
