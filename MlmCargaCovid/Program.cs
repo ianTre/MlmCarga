@@ -1,4 +1,6 @@
-﻿using ClosedXML.Excel;
+﻿
+using ClosedXML.Excel;
+using ProyectoHipocrates;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,21 +17,33 @@ namespace MlmCargaCovid
 
             int cantErrores = 0;
             Console.WriteLine("Hola mundo");
+
+
+
+
             //var data = ReadExcelFile("BASE", @"D:\Codigo\MlmCargaCovid\MlmCargaCovid\ExcelSISA.xlsx");
-            var data = ReadExcelFileClose("BASE", @"D:\Codigo\MlmCargaCovid\MlmCarga\MlmCargaCovid\ExcelSISA.xlsx");
+            var data = ReadExcelFileClose("BASE", @"C:\Codigo\GitHub\Covid-Carga\MlmCarga\MlmCargaCovid\ExcelSISA.xlsx");
             List<Paciente> pacientes = new List<Paciente>();
             foreach (var row in data)
             {
                 Console.WriteLine("Paciente " + row.RowNumber().ToString());
-                if ( row.RowNumber() == 1 )
+                if (row.RowNumber() == 1)
                 {
                     continue;
                 }
                 try
                 {
+                    
+
                     Paciente persona = new Paciente(row);
+                    if (BuscarEnBasePropia(persona))
+                        continue;
+                    BuscarEnKlinicos(persona);
+
                     pacientes.Add(persona);
-                    persona.BuscarEnKlinicos();
+
+                    GrabarEnBasePropia(persona);
+
                 }
                 catch (Exception ex)
                 {
@@ -37,20 +51,93 @@ namespace MlmCargaCovid
                     cantErrores++;
                     continue;
                 }
-                
+
                 Thread.Sleep(10);
-                if(row.RowNumber() % 100 == 0)
+                if (row.RowNumber() % 100 == 0)
                     Console.Clear();
             }
 
             Console.WriteLine(cantErrores);
             Console.ReadLine();
-            
 
 
 
 
 
+
+
+        }
+
+        private static bool BuscarEnBasePropia(Paciente persona)
+        {
+            try
+            {
+                bool encontrado = (new Repositorio()).BuscarEnBasePropia(persona);
+                return encontrado;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private static void GrabarEnBasePropia(Paciente persona)
+        {
+            try
+            {
+                (new Repositorio()).GrabarEnBasePropia(persona);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        private static Paciente BuscarEnKlinicos(Paciente persona)
+        {
+
+            List<string> establecimientos = new List<string>();
+            establecimientos.Add("germani");
+            establecimientos.Add("rebasa");
+            establecimientos.Add("niños");
+            establecimientos.Add("policlinico");
+            establecimientos.Add("cemefir");
+            establecimientos.Add("giovinazzo");
+            bool pacienteEncontrado = false;
+            foreach (string item in establecimientos)
+            {
+                try
+                {
+
+
+                    Repositorio repo = new Repositorio(item);
+                    List<Paciente> pacientes = new List<Paciente>();
+                    pacientes.Add(persona);
+                    var cantidadMatch = repo.BuscarPacienteEnKlinicos(pacientes, persona);
+                    if (cantidadMatch > 0)
+                        repo.GrabarRegistros(pacientes);
+
+                    if (cantidadMatch > 0)
+                        pacienteEncontrado = true;
+                }
+                catch (Exception ex)
+                {
+
+                    persona.Error = ex.Message;
+                    continue;
+                }
+            }
+
+            if (!pacienteEncontrado)
+                persona.Error = "No se encontro al paciente en ninguna base";
+            return persona;
+        }
+
+        private static void GuardarEnBase(Paciente persona)
+        {
 
         }
 

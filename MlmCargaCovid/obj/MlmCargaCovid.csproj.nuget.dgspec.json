@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {}
+    "C:\\Codigo\\GitHub\\Covid-Carga\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {}
   },
   "projects": {
-    "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {
+    "C:\\Codigo\\GitHub\\Covid-Carga\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
+        "projectUniqueName": "C:\\Codigo\\GitHub\\Covid-Carga\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
         "projectName": "MlmCargaCovid",
-        "projectPath": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
-        "packagesPath": "C:\\Users\\ian\\.nuget\\packages\\",
-        "outputPath": "D:\\Codigo\\MlmCargaCovid\\MlmCarga\\MlmCargaCovid\\obj\\",
+        "projectPath": "C:\\Codigo\\GitHub\\Covid-Carga\\MlmCarga\\MlmCargaCovid\\MlmCargaCovid.csproj",
+        "packagesPath": "C:\\Users\\BishopPC\\.nuget\\packages\\",
+        "outputPath": "C:\\Codigo\\GitHub\\Covid-Carga\\MlmCarga\\MlmCargaCovid\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ian\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\BishopPC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -45,6 +48,10 @@
             "System.Data.OleDb": {
               "target": "Package",
               "version": "[4.7.1, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.6.0, )"
             }
           },
           "imports": [
@@ -62,7 +69,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
         }
       }
     }

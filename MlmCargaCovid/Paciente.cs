@@ -7,7 +7,7 @@ using ClosedXML.Excel;
 
 namespace MlmCargaCovid
 {
-    class Paciente
+    public class Paciente
     {
         public string Nombre { get; set; }
         public string Apellido { get; set; }
@@ -15,7 +15,13 @@ namespace MlmCargaCovid
         public int Edad { get; set; }
         public DateTime FechaCarga { get; set; }
         public string Telefono { get; set; }
+        public bool Procesado { get; set; }
+        public string Error { get; set; }
+        public string IDKlinicos { get; set; }
 
+
+        public Paciente()
+        { }
 
         public Paciente(IXLRow row)
         {
@@ -63,10 +69,6 @@ namespace MlmCargaCovid
 
         }
 
-        internal void BuscarEnKlinicos()
-        {
-            
-        }
     }
 
 }
